@@ -1,0 +1,38 @@
+pdl_version: 1.0.0
+id: longer.lk5-pro
+name: Longer LK5 Pro
+firmware: marlin
+kinematics: cartesian
+geometry:
+  bed_shape: [[0, 0], [300, 0], [300, 300], [0, 300]]
+  z_height: 400
+  origin: front_left
+limits:
+  print_speed_max: 180
+  travel_speed_max: 200
+  acceleration_max: 1000
+  jerk_max: 8
+extruders:
+  - id: E0
+    nozzle_diameter: 0.4
+    nozzle_type: brass
+    drive: bowden
+    max_nozzle_temperature: 260
+    supported_filaments: [PLA, PETG, TPU]
+features:
+  auto_bed_leveling: true
+  probe:
+    type: bltouch
+    mesh_size: [5, 5]
+gcode:
+  start:
+    - M140 S{bed}
+    - M104 S{nozzle}
+    - G28
+    - M420 S1
+    - M190 S{bed}
+    - M109 S{nozzle}
+  end:
+    - M104 S0
+    - M140 S0
+    - M84
